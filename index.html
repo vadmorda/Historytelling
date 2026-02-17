@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>🎲 Dado Histórico — Icons</title>
+<style>
+  :root{
+    --bg0:#0b0f18;
+    --bg1:#111a2b;
+    --bg2:#0c1220;
+    --card: rgba(255,255,255,.06);
+    --card2: rgba(255,255,255,.10);
+    --stroke: rgba(255,255,255,.92);
+    --muted: rgba(255,255,255,.72);
+    --muted2: rgba(255,255,255,.55);
+    --accent:#7dd3fc;      /* azul suave */
+    --accent2:#fbbf24;     /* oro */
+    --danger:#fb7185;
+
+    --diceA:#f4f1ea;       /* cara clara */
+    --diceB:#d9d2c4;       /* sombreado */
+    --diceEdge:#bdb3a0;    /* canto */
+    --diceInk:#1a1a1a;     /* tinta icono */
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial, sans-serif;
+    color:white;
+    min-height:100svh;
+    display:grid;
+    place-items:center;
+    background:
+      radial-gradient(1200px 700px at 20% 10%, rgba(125,211,252,.14), transparent 55%),
+      radial-gradient(900px 600px at 80% 20%, rgba(251,191,36,.10), transparent 55%),
+      radial-gradient(900px 700px at 20% 90%, rgba(251,113,133,.10), transparent 55%),
+      linear-gradient(180deg, var(--bg0), var(--bg1) 40%, var(--bg2));
+  }
+
+  .app{
+    width:min(1100px, 94vw);
+    display:grid;
+    gap:14px;
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:14px 16px;
+    border-radius:18px;
+    background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    backdrop-filter: blur(10px);
+  }
+
+  .title{
+    display:grid;
+    gap:4px;
+  }
+  .title h1{
+    margin:0;
+    font-size:16px;
+    letter-spacing:.2px;
+  }
+  .title p{
+    margin:0;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.35;
+    max-width:72ch;
+  }
+
+  .controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:flex-end;
+  }
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 10px;
+    border-radius:999px;
+    background: rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    color:var(--muted);
+    font-weight:700;
+    font-size:12px;
+  }
+
+  .btn{
+    cursor:pointer;
+    padding:10px 12px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.09);
+    color:white;
+    font-weight:800;
+    font-size:13px;
+    transition: transform .12s ease, filter .12s ease, background .12s ease;
+  }
+  .btn:hover{ filter:brightness(1.06); background: rgba(255,255,255,.12); }
+  .btn:active{ transform: translateY(1px) scale(.99); }
+
+  .btn.primary{
+    border:1px solid rgba(125,211,252,.35);
+    background: linear-gradient(180deg, rgba(125,211,252,.22), rgba(125,211,252,.10));
+  }
+  .btn.warn{
+    border:1px solid rgba(251,191,36,.35);
+    background: linear-gradient(180deg, rgba(251,191,36,.20), rgba(251,191,36,.08));
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap:14px;
+    align-items:stretch;
+  }
+  @media (max-width: 980px){
+    .grid{ grid-template-columns: 1fr; }
+  }
+
+  .panel{
+    border-radius:22px;
+    background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow: 0 18px 60px rgba(0,0,0,.40);
+    overflow:hidden;
+    position:relative;
+  }
+  .panelInner{ padding:16px; display:grid; gap:12px; }
+
+  .heroRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .heroRow .h2{
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:.2px;
+  }
+  .hint{
+    font-size:13px;
+    color:var(--muted);
+    background: rgba(0,0,0,.20);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:16px;
+    padding:12px;
+    line-height:1.35;
+  }
+
+  /* ============================
+     DADO SÓLIDO (3D)
+     ============================ */
+  .stage{
+    display:grid;
+    place-items:center;
+    padding:12px 0 6px;
+  }
+  .shadow{
+    width:min(420px, 80vw);
+    height:24px;
+    border-radius:999px;
+    background: radial-gradient(circle at 50% 50%, rgba(0,0,0,.55), rgba(0,0,0,0) 70%);
+    filter: blur(2px);
+    opacity:.55;
+    transform: translateY(-10px);
+  }
+
+  .cubeWrap{
+    width:min(460px, 84vw);
+    height:360px;
+    perspective: 1100px;
+    display:grid;
+    place-items:center;
+    user-select:none;
+  }
+
+  .cube{
+    width:220px;
+    height:220px;
+    position:relative;
+    transform-style:preserve-3d;
+    transform: rotateX(-18deg) rotateY(32deg);
+    cursor:pointer;
+  }
+
+  /* “canto” externo: da sensación de volumen */
+  .cube::before{
+    content:"";
+    position:absolute;
+    inset:-12px;
+    border-radius:34px;
+    background:
+      radial-gradient(180px 140px at 25% 20%, rgba(255,255,255,.55), transparent 60%),
+      radial-gradient(220px 200px at 70% 80%, rgba(0,0,0,.30), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.18));
+    filter: blur(.2px);
+    transform: translateZ(-2px);
+    pointer-events:none;
+    opacity:.85;
+  }
+
+  .face{
+    position:absolute;
+    inset:0;
+    border-radius:30px;
+    background:
+      radial-gradient(160px 120px at 22% 20%, rgba(255,255,255,.92), rgba(255,255,255,0) 62%),
+      radial-gradient(220px 200px at 70% 82%, rgba(0,0,0,.18), rgba(0,0,0,0) 62%),
+      linear-gradient(180deg, var(--diceA), var(--diceB));
+    border:1px solid rgba(0,0,0,.35);
+    box-shadow:
+      inset 0 0 0 2px rgba(255,255,255,.30),
+      inset 0 -16px 28px rgba(0,0,0,.10),
+      0 18px 46px rgba(0,0,0,.28);
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+  }
+
+  /* bisel interior */
+  .face::after{
+    content:"";
+    position:absolute;
+    inset:14px;
+    border-radius:22px;
+    border:1px solid rgba(0,0,0,.16);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);
+    pointer-events:none;
+    opacity:.9;
+  }
+
+  /* placa del icono: contraste + legibilidad */
+  .iconPlate{
+    width:150px;
+    height:150px;
+    border-radius:24px;
+    display:grid;
+    place-items:center;
+    background:
+      radial-gradient(110px 80px at 30% 25%, rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
+      linear-gradient(180deg, rgba(255,255,255,.55), rgba(0,0,0,.06));
+    border:1px solid rgba(0,0,0,.18);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.25);
+    position:relative;
+    z-index:2;
+  }
+
+  .face svg{
+    width:120px;
+    height:120px;
+    display:block;
+    filter: drop-shadow(0 2px 0 rgba(255,255,255,.30)) drop-shadow(0 10px 16px rgba(0,0,0,.20));
+  }
+
+  /* fuerza estilo consistente para todos los SVG */
+  .face svg *{
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* posicionado en el espacio */
+  .front  { transform: translateZ(110px); }
+  .back   { transform: rotateY(180deg) translateZ(110px); }
+  .right  { transform: rotateY(90deg)  translateZ(110px); }
+  .left   { transform: rotateY(-90deg) translateZ(110px); }
+  .top    { transform: rotateX(90deg)  translateZ(110px); }
+  .bottom { transform: rotateX(-90deg) translateZ(110px); }
+
+  /* animación: más “física” (salto + spin + aterrizaje) */
+  .rolling{
+    animation: roll 1050ms cubic-bezier(.15,.85,.18,1) both;
+  }
+  @keyframes roll{
+    0%   { transform: rotateX(-18deg) rotateY(32deg) translateY(0); }
+    15%  { transform: rotateX(90deg) rotateY(180deg) translateY(-18px); }
+    35%  { transform: rotateX(210deg) rotateY(420deg) translateY(-30px); }
+    60%  { transform: rotateX(320deg) rotateY(650deg) translateY(-12px); }
+    85%  { transform: rotateX(360deg) rotateY(820deg) translateY(-4px); }
+    100% { transform: rotateX(var(--rx)) rotateY(var(--ry)) translateY(0); }
+  }
+
+  /* ============================
+     RESULTADO + HISTORIAL
+     ============================ */
+  .bigResult{
+    min-height: 220px;
+    border-radius:18px;
+    padding:14px;
+    background: rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.10);
+    display:grid;
+    place-items:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .bigResult .bigPlate{
+    width:220px;
+    height:220px;
+    border-radius:28px;
+    display:grid;
+    place-items:center;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow: 0 18px 50px rgba(0,0,0,.35);
+  }
+  .bigResult svg{ width:160px; height:160px; }
+
+  .tray{
+    border-radius:18px;
+    padding:12px;
+    background: rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.10);
+  }
+  .trayTitle{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+    font-size:12px;
+    color:var(--muted);
+    font-weight:800;
+    letter-spacing:.2px;
+  }
+  .icons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .token{
+    width:54px;
+    height:54px;
+    border-radius:16px;
+    display:grid;
+    place-items:center;
+    background: rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow: 0 10px 24px rgba(0,0,0,.30);
+  }
+  .token svg{ width:32px; height:32px; opacity:.95; }
+  .srOnly{
+    position:absolute; width:1px; height:1px;
+    padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0);
+    white-space:nowrap; border:0;
+  }
+  .face img{
+  width:120px;
+  height:120px;
+  object-fit:contain;
+  filter: drop-shadow(0 2px 0 rgba(255,255,255,.30))
+          drop-shadow(0 10px 16px rgba(0,0,0,.20));
+}
+.bigResult img{
+  width:160px;
+  height:160px;
+  object-fit:contain;
+}
+.token img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+
+</style>
+</head>
+
+<body>
+<div class="app">
+  <header>
+    <div class="title">
+      <h1>🎲 Dado Histórico (iconos legibles)</h1>
+      <p>Clic o barra espaciadora: sale <b>un símbolo</b> sin repetición y queda registrado.</p>
+    </div>
+    <div class="controls">
+      <span class="pill" id="pillRemaining">Quedan: —</span>
+      <span class="pill" id="status">Listo</span>
+      <button class="btn primary" id="btnRoll">Tirar</button>
+      <button class="btn warn" id="btnReset">Reiniciar</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="panel">
+      <div class="panelInner">
+        <div class="heroRow">
+          <div class="h2">El dado</div>
+          <div class="pill">Tip: espacio / click</div>
+        </div>
+
+        <div class="stage">
+          <div class="cubeWrap">
+            <div id="cube" class="cube" role="button" tabindex="0" aria-label="Tirar el dado">
+              <div id="faceFront" class="face front"></div>
+              <div id="faceBack" class="face back"></div>
+              <div id="faceRight" class="face right"></div>
+              <div id="faceLeft" class="face left"></div>
+              <div id="faceTop" class="face top"></div>
+              <div id="faceBottom" class="face bottom"></div>
+              <span class="srOnly" id="ariaResult">Sin resultado.</span>
+            </div>
+          </div>
+          <div class="shadow"></div>
+        </div>
+
+        <div class="hint">
+          🗣️ Cada turno: <b>1 hecho histórico</b> + <b>1 invención narrativa</b>.
+          <br/>Ej: “Mosquete + Parlamento → cambia la relación entre poder y ejército…”
+        </div>
+
+        <div class="controls" style="justify-content:center;">
+          <button class="btn primary" id="btnRoll2">Tirar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panelInner">
+        <div class="heroRow">
+          <div class="h2">Resultado</div>
+          <div class="pill">Historial: <span id="usedCount">0</span></div>
+        </div>
+
+        <div class="bigResult" id="bigResult" aria-live="polite" aria-atomic="true">
+          <div class="bigPlate" id="bigPlate"></div>
+        </div>
+
+        <div class="tray">
+          <div class="trayTitle">
+            <span>Ya han salido</span>
+            <span id="usedCount2">0</span>
+          </div>
+          <div class="icons" id="usedIcons"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+  // =========================
+  // ICONOS NUEVOS: MUY LEGIBLES
+  // (añade tantos como quieras; todos comparten estilo)
+  // =========================
+ const ICONS = [
+  item("Acuerdo (pionero–indígena)", "assets/acuerdo_pionero_indigena.png"),
+  item("Acuerdo (indígena–colono)", "assets/apreton_manos_indigena_colono.png"),
+  item("Acuerdo industrial", "assets/apreton_manos_industrial.png"),
+  item("Astronauta en la Luna (EE. UU.)", "assets/astronauta_luna_bandera_usa.png"),
+  item("Avión bombardero", "assets/avion_bombardero.png"),
+  item("Biplano bombardeo", "assets/biplano_bombardeo.png"),
+  item("Barco velero", "assets/barco_velero.png"),
+  item("Benjamin Franklin y cometa", "assets/benjamin_franklin_cometa.png"),
+  item("Caballero ayuda a otro", "assets/caballero_ayudando_a_otro.png"),
+  item("Caballero cruzado con bandera", "assets/caballero_cruzado_bandera.png"),
+  item("Soldado romano a caballo", "assets/caballero_romano_a_caballo.png"),
+  item("Caballero victoriano con documento", "assets/caballero_victoriano_documento.png"),
+  item("Caballo y motocicleta", "assets/caballero_y_motocicleta.png"),
+  item("Calendario azteca / Sol", "assets/calendario_azteca_sol.png"),
+  item("Cañón y torre", "assets/canon_y_torre.png"),
+  item("Carro de caravana", "assets/carro_caravana.png"),
+  item("Castillo / fortaleza", "assets/castillo_fortaleza.png"),
+  item("Cavernícola caza jabalí", "assets/cavernicola_caza_jabali.png"),
+  item("Cavernícola enciende fuego", "assets/cavernicola_encendiendo_fuego.png"),
+  item("Idea (bombilla)", "assets/idea_bombilla.png"),
+   item("Pistolero", "assets/pistolero_revolver.png"),
+item("Tratado diplomático", "assets/acuerdo_diplomatico.png"),
+item("Líder político", "assets/lider_politico_discurso.png"),
+item("Economía", "assets/tiempo_dinero.png"),
+item("Derechos civiles", "assets/manifestacion_derechos_civiles.png"),
+item("Cosmonauta URSS", "assets/cosmonauta_urss.png"),
+item("Avance médico", "assets/cirugia_cerebral.png"),
+item("Trinchera", "assets/soldado_trinchera.png"),
+item("Soldado", "assets/soldado_bayoneta.png"),
+item("Lanzallamas", "assets/soldado_lanzallamas.png"),
+item("Guerra química", "assets/soldados_gas.png"),
+item("Piratas", "assets/tesoro_pirata.png"),
+item("Japón", "assets/torii_japones.png"),
+item("Revolución industrial", "assets/locomotora_vapor.png"),
+item("Ley", "assets/ley_justicia_libros.png"),
+item("Vikingos", "assets/guerrero_vikingo.png"),
+item("Washington", "assets/washington_cruza_rio.png"),
+item("Arqueología", "assets/arqueologos_excavacion.png"),
+item("Civilización mesoamericana", "assets/piramide_mesoamericana.png"),
+   item("Estatua de la Libertad","assets/estatua_libertad.png"),
+item("Lincoln Proclamación","assets/lincoln_proclamacion.png"),
+item("Escritor máquina","assets/escritor_maquina.png"),
+item("Cazador prehistórico","assets/cazador_prehistorico_bisonte.png"),
+item("Descubrimiento del fuego","assets/anciano_fuego.png"),
+item("Mamut","assets/mamut_hueso.png"),
+item("Einstein pizarra","assets/einstein_pizarra.png"),
+item("Einstein libro","assets/einstein_libro.png"),
+item("Rosario","assets/rosario_cruz.png"),
+item("Herrero","assets/herrero_forja.png"),
+item("Bombas nucleares","assets/bombas_nucleares.png"),
+item("Napoleón","assets/napoleon_catalejo.png"),
+item("Mundo en llamas","assets/mundo_pincel.png"),
+item("Explosión nuclear","assets/hongo_flecha.png"),
+item("Muerte","assets/muerte_parca.png"),
+item("Firma tratado","assets/firma_tratado.png"),
+item("Sufragista","assets/sufragista_votes_women.png"),
+item("Científico hueso","assets/cientifico_hueso.png"),
+item("Fósil dinosaurio","assets/fosil_dinosaurio.png"),
+item("Soldado fusil","assets/soldado_fusil.png"),
+item("Soldado lanza","assets/soldado_lanza.png"),
+item("Soldados gas","assets/soldados_gas.png"),
+item("Tesoro pirata","assets/cofre_pirata.png"),
+item("Torii explosión","assets/torii_explosion.png"),
+item("Tren vapor","assets/tren_vapor.png"),
+item("Tribunal","assets/tribunal_libros.png"),
+item("Vikingo","assets/vikingo_bandera.png"),
+item("Washington cruzando","assets/washington_barca.png"),
+item("Arqueólogos","assets/arqueologos_excavacion.png"),
+   item("Diálogo","assets/dialogo_corazon.png"),
+item("Revolucionario","assets/che_dinamita.png"),
+item("Colonos","assets/colonos_peregrinos.png"),
+item("Combate antiguo","assets/combate_antiguo.png"),
+item("Constitución","assets/constitucion.png"),
+item("Idea","assets/idea_bombilla.png"),
+item("Investigación","assets/lupa.png"),
+item("Extraterrestre","assets/alien.png"),
+item("Fotografía","assets/camara.png"),
+item("Fantasma","assets/fantasma.png"),
+item("Grito","assets/persona_gritando.png"),
+item("Dormir","assets/durmiendo.png"),
+item("Acuerdo","assets/choque_manos.png"),
+item("Huida","assets/persona_corriendo.png"),
+item("Serpiente","assets/serpiente.png"),
+item("Drakkar vikingo","assets/drakkar.png"),
+item("Duelo caballeros","assets/duelo_caballeros.png"),
+item("Einstein libro","assets/einstein_libro2.png"),
+item("Einstein pizarra","assets/einstein_pizarra2.png"),
+item("Escritor","assets/escritor2.png"),
+];
+
+
+  function item(name, src){ return { name, src }; }
+
+
+  // =========================
+  // LÓGICA (bolsa sin repetir)
+  // =========================
+  let bag = [];
+  let used = [];
+  let isRolling = false;
+
+  const cube = document.getElementById("cube");
+  const faceFront = document.getElementById("faceFront");
+  const faceBack = document.getElementById("faceBack");
+  const faceRight = document.getElementById("faceRight");
+  const faceLeft = document.getElementById("faceLeft");
+  const faceTop = document.getElementById("faceTop");
+  const faceBottom = document.getElementById("faceBottom");
+
+  const bigPlate = document.getElementById("bigPlate");
+  const usedIcons = document.getElementById("usedIcons");
+  const usedCount = document.getElementById("usedCount");
+  const usedCount2 = document.getElementById("usedCount2");
+  const pillRemaining = document.getElementById("pillRemaining");
+  const status = document.getElementById("status");
+  const ariaResult = document.getElementById("ariaResult");
+
+  const btnRoll = document.getElementById("btnRoll");
+  const btnRoll2 = document.getElementById("btnRoll2");
+  const btnReset = document.getElementById("btnReset");
+
+  function resetGame(){
+    bag = shuffle([...ICONS]);
+    used = [];
+    renderRemaining();
+    renderUsed();
+    setResult(null);
+    setCubeIdleFaces();
+    status.textContent = "Listo";
+  }
+
+  function renderRemaining(){
+    pillRemaining.textContent = `Quedan: ${bag.length}/${ICONS.length}`;
+  }
+
+  function renderUsed(){
+    usedCount.textContent = String(used.length);
+    usedCount2.textContent = String(used.length);
+    usedIcons.innerHTML = "";
+    used.forEach(u=>{
+      const t = document.createElement("div");
+      t.className = "token";
+      t.innerHTML = `<img src="${u.src}" alt="">`;
+      t.title = u.name;
+      usedIcons.appendChild(t);
+    });
+  }
+
+  function setResult(icon){
+    bigPlate.innerHTML = icon ? `<img src="${icon.src}" alt="">` : iconWaxSeal();
+    ariaResult.textContent = icon ? `Ha salido: ${icon.name}` : "Sin resultado todavía.";
+  }
+
+function wrap(content){
+  const s = String(content).trim();
+  if (s.startsWith("<svg")) {
+    return `<div class="iconPlate">${s}</div>`;
+  }
+  return `<div class="iconPlate"><img src="${s}" alt=""></div>`;
+}
+
+
+  function roll(){
+    if(isRolling) return;
+    if(bag.length === 0){
+      status.textContent = "Sin símbolos. Reinicia.";
+      cube.animate(
+        [{transform:"rotateX(-18deg) rotateY(32deg)"},
+         {transform:"rotateX(-18deg) rotateY(32deg) translateY(-6px)"},
+         {transform:"rotateX(-18deg) rotateY(32deg)"}],
+        {duration:260}
+      );
+      return;
+    }
+
+    isRolling = true;
+    status.textContent = "Rodando…";
+
+    const next = bag.pop();
+    used.push(next);
+    renderRemaining();
+    renderUsed();
+
+    // orientación final “bonita”
+    const rx = randPick([ -18, 18, 42, 66, 96, 120, 150, 180, 210, 240, 270, 300, 330 ]);
+    const ry = randPick([  32, 70, 110, 160, 210, 260, 310, 350, 390, 430, 470, 510, 550 ]);
+    cube.style.setProperty("--rx", `${rx}deg`);
+    cube.style.setProperty("--ry", `${ry}deg`);
+
+    // durante el giro: caras neutras (para que el ojo “lea” bien el final)
+    setCubeIdleFaces();
+
+    cube.classList.remove("rolling");
+    void cube.offsetWidth;
+    cube.classList.add("rolling");
+
+    setTimeout(()=>{
+      cube.classList.remove("rolling");
+      faceFront.innerHTML = wrap(next.src);
+      faceFront.title = next.name;
+      setResult(next);
+      status.textContent = "Listo";
+      isRolling = false;
+    }, 1080);
+  }
+
+  function setCubeIdleFaces(){
+  faceFront.innerHTML  = wrap("./assets/idea_bombilla.png");
+  faceBack.innerHTML   = wrap("./assets/barco_velero.png");
+  faceRight.innerHTML  = wrap("./assets/castillo_fortaleza.png");
+  faceLeft.innerHTML   = wrap("./assets/benjamin_franklin_cometa.png");
+  faceTop.innerHTML    = wrap("./assets/calendario_azteca_sol.png");
+  faceBottom.innerHTML = wrap("./assets/tesoro_pirata.png");
+}
+
+
+  function randPick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  function shuffle(arr){
+    for(let i=arr.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
+    return arr;
+  }
+
+  // eventos
+  cube.addEventListener("click", roll);
+  btnRoll.addEventListener("click", roll);
+  btnRoll2.addEventListener("click", roll);
+  btnReset.addEventListener("click", resetGame);
+
+  cube.addEventListener("keydown", (e)=>{
+    if(e.key === " " || e.key === "Enter"){
+      e.preventDefault();
+      roll();
+    }
+  });
+  window.addEventListener("keydown", (e)=>{
+    if(e.key === " " && document.activeElement === document.body){
+      e.preventDefault();
+      roll();
+    }
+  });
+
+  resetGame();
+
+  // =========================
+  // SVG FACTORY (estilo único)
+  // =========================
+  function svgLine(inner){
+    return `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g fill="none" stroke="rgba(26,26,26,.95)" stroke-width="10"
+         stroke-linecap="round" stroke-linejoin="round">
+        ${inner}
+      </g>
+    </svg>`;
+  }
+  function svgFill(inner){
+    return `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g fill="rgba(26,26,26,.92)" stroke="rgba(26,26,26,.92)" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+        ${inner}
+      </g>
+    </svg>`;
+  }
+
+  // =========================
+  // ICONOS (claros + simples)
+  // =========================
+  function iconCrown(){
+    return svgLine(`
+      <path d="M20 78l12-34 24 24 24-24 12 34"/>
+      <path d="M20 78h80"/>
+      <path d="M30 92h60"/>
+    `);
+  }
+  function iconCastle(){
+    return svgLine(`
+      <path d="M24 92V44h16V28h16v16h16V28h16v64"/>
+      <path d="M46 92V70h28v22"/>
+      <path d="M24 44h72"/>
+    `);
+  }
+  function iconSword(){
+    return svgLine(`
+      <path d="M62 18l18 18-18 18-18-18z"/>
+      <path d="M62 54v44"/>
+      <path d="M40 66h44"/>
+      <path d="M54 98h16"/>
+    `);
+  }
+  function iconShield(){
+    return svgLine(`
+      <path d="M60 18c20 10 34 12 34 12v36c0 24-18 36-34 44C44 102 26 90 26 66V30s14-2 34-12z"/>
+      <path d="M60 18v92"/>
+    `);
+  }
+  function iconBow(){
+    return svgLine(`
+      <path d="M84 24c-26 14-26 58 0 72"/>
+      <path d="M36 24c26 14 26 58 0 72"/>
+      <path d="M36 60h48"/>
+      <path d="M60 42l24 18-24 18"/>
+    `);
+  }
+  function iconHelmet(){
+    return svgLine(`
+      <path d="M60 22c-22 0-38 16-38 38v32h76V60c0-22-16-38-38-38z"/>
+      <path d="M22 60h76"/>
+      <path d="M60 60v32"/>
+    `);
+  }
+  function iconCannon(){
+    return svgLine(`
+      <path d="M22 72h52l22-16"/>
+      <circle cx="44" cy="92" r="8"/>
+      <circle cx="84" cy="92" r="8"/>
+      <path d="M22 72l-10 20h96"/>
+    `);
+  }
+  function iconMusket(){
+    return svgLine(`
+      <path d="M18 80l74-40"/>
+      <path d="M92 40l14 6"/>
+      <path d="M32 92l-14 8"/>
+      <path d="M58 82l10 20"/>
+    `);
+  }
+  function iconChurch(){
+    return svgLine(`
+      <path d="M28 98V58h64v40z"/>
+      <path d="M28 58l32-24 32 24"/>
+      <path d="M60 34V18"/>
+      <path d="M52 22h16"/>
+      <path d="M50 98V74h20v24"/>
+    `);
+  }
+  function iconBook(){
+    return svgLine(`
+      <path d="M22 34h34c10 0 14 6 14 14v54H22z"/>
+      <path d="M98 34H64c-10 0-14 6-14 14v54h48z"/>
+      <path d="M34 54h18"/>
+      <path d="M68 54h18"/>
+    `);
+  }
+  function iconScroll(){
+    return svgLine(`
+      <path d="M34 32h46c12 0 18 8 18 18s-6 18-18 18H36c-12 0-18-8-18-18s6-18 16-18z"/>
+      <path d="M40 74h46"/>
+      <path d="M40 90h34"/>
+    `);
+  }
+  function iconQuill(){
+    return svgLine(`
+      <path d="M98 22C64 30 34 62 22 98"/>
+      <path d="M52 92l-30 8 8-30"/>
+      <path d="M54 64l16 16"/>
+    `);
+  }
+  function iconScales(){
+    return svgLine(`
+      <path d="M60 18v78"/>
+      <path d="M28 34h64"/>
+      <path d="M34 34l-14 26h28z"/>
+      <path d="M86 34l-14 26h28z"/>
+      <path d="M44 96h32"/>
+    `);
+  }
+  function iconCoins(){
+    return svgLine(`
+      <circle cx="48" cy="64" r="18"/>
+      <circle cx="72" cy="54" r="18"/>
+      <path d="M40 64h16"/>
+      <path d="M64 54h16"/>
+    `);
+  }
+  function iconStall(){
+    return svgLine(`
+      <path d="M18 44h84l-10-22H28z"/>
+      <path d="M26 44v56"/>
+      <path d="M94 44v56"/>
+      <path d="M26 100h68"/>
+      <path d="M42 44v56"/>
+      <path d="M60 44v56"/>
+      <path d="M78 44v56"/>
+    `);
+  }
+  function iconCaravan(){
+    return svgLine(`
+      <path d="M20 76h70"/>
+      <path d="M28 76c6-22 22-38 42-38 16 0 28 12 32 28"/>
+      <circle cx="40" cy="96" r="8"/>
+      <circle cx="78" cy="96" r="8"/>
+    `);
+  }
+  function iconShip(){
+    return svgLine(`
+      <path d="M20 76h80l-12 22H32z"/>
+      <path d="M60 18v58"/>
+      <path d="M60 22l26 18H60z"/>
+      <path d="M18 108c16-10 68-10 84 0"/>
+    `);
+  }
+  function iconWindmill(){
+    return svgLine(`
+      <path d="M56 46l-20-26"/>
+      <path d="M64 46l20-26"/>
+      <path d="M56 54L36 80"/>
+      <path d="M64 54l20 26"/>
+      <circle cx="60" cy="50" r="8"/>
+      <path d="M52 104V78h16v26"/>
+    `);
+  }
+  function iconWheat(){
+    return svgLine(`
+      <path d="M60 22v84"/>
+      <path d="M50 32c-10-8-16-18-16-18s12 4 20 12"/>
+      <path d="M70 32c10-8 16-18 16-18s-12 4-20 12"/>
+      <path d="M50 54c-10-8-16-18-16-18s12 4 20 12"/>
+      <path d="M70 54c10-8 16-18 16-18s-12 4-20 12"/>
+      <path d="M50 76c-10-8-16-18-16-18s12 4 20 12"/>
+      <path d="M70 76c10-8 16-18 16-18s-12 4-20 12"/>
+    `);
+  }
+  function iconCompass(){
+    return svgLine(`
+      <circle cx="60" cy="60" r="34"/>
+      <path d="M60 30l18 32-18 18-18-18z"/>
+      <path d="M60 60h0"/>
+    `);
+  }
+  function iconMap(){
+    return svgLine(`
+      <path d="M22 34l26-10 24 10 26-10v72l-26 10-24-10-26 10z"/>
+      <path d="M48 24v72"/>
+      <path d="M72 34v72"/>
+    `);
+  }
+  function iconGlobe(){
+    return svgLine(`
+      <circle cx="60" cy="60" r="34"/>
+      <path d="M26 60h68"/>
+      <path d="M60 26c14 14 14 54 0 68"/>
+      <path d="M60 26c-14 14-14 54 0 68"/>
+    `);
+  }
+  function iconTelescope(){
+    return svgLine(`
+      <path d="M18 78l78-40"/>
+      <path d="M96 38l16 8"/>
+      <path d="M34 86l12 24"/>
+      <path d="M34 110h32"/>
+    `);
+  }
+  function iconPress(){
+    return svgLine(`
+      <path d="M28 30h64v18H28z"/>
+      <path d="M34 48v42"/>
+      <path d="M86 48v42"/>
+      <path d="M28 90h64v16H28z"/>
+      <path d="M42 66h36"/>
+    `);
+  }
+  function iconTrain(){
+    return svgLine(`
+      <path d="M26 44h58c10 0 18 8 18 18v26H26z"/>
+      <path d="M26 88h76"/>
+      <circle cx="44" cy="98" r="8"/>
+      <circle cx="72" cy="98" r="8"/>
+      <circle cx="98" cy="98" r="8"/>
+      <path d="M42 44V30h18v14"/>
+      <path d="M80 44V24h14v20"/>
+    `);
+  }
+
+  // icono neutro tipo “pips” (para caras durante idle)
+  function iconPips(){
+    return svgFill(`
+      <circle cx="36" cy="36" r="10"/>
+      <circle cx="84" cy="36" r="10"/>
+      <circle cx="60" cy="60" r="10"/>
+      <circle cx="36" cy="84" r="10"/>
+      <circle cx="84" cy="84" r="10"/>
+    `);
+  }
+
+  function iconWaxSeal(){
+    return `
+    <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="w" cx="35%" cy="30%" r="70%">
+          <stop offset="0" stop-color="rgba(125,211,252,.55)"/>
+          <stop offset="1" stop-color="rgba(0,0,0,0)"/>
+        </radialGradient>
+      </defs>
+      <g fill="none" stroke="rgba(255,255,255,.85)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M70 160c-20-22-22-54-6-78 18-28 56-46 80-44 38 2 76 32 80 72 4 34-16 66-48 78-40 16-86 10-106-28z"/>
+        <path d="M92 98c20-12 44-12 64 0"/>
+        <path d="M82 132c34 22 74 22 108 0"/>
+      </g>
+      <circle cx="120" cy="120" r="84" fill="url(#w)" opacity=".8"/>
+    </svg>`;
+  }
+
+})();
+</script>
+</body>
+</html>
